@@ -1,0 +1,27 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\javit\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\mbed_nano\\4.1.1\\cores\\arduino"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\javit\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\mbed_nano\\4.1.1\\variants\\ARDUINO_NANO33BLE"
+  },
+  {
+    "Sourcefile": "c:\\Users\\javit\\Documents\\curso23-24\\Investigacion\\EHU\\Firmware\\ArduinoOutput\\sketch\\serialMonitor_VNA.ino.cpp",
+    "Include": "Scheduler.h",
+    "Includepath": "C:\\Users\\javit\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\mbed_nano\\4.1.1\\libraries\\Scheduler\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\javit\\Documents\\curso23-24\\Investigacion\\EHU\\Firmware\\ArduinoOutput\\sketch\\serialMonitor_VNA.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\javit\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\mbed_nano\\4.1.1\\libraries\\Scheduler\\src\\Scheduler.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]
