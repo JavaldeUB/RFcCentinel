@@ -1,5 +1,5 @@
 % Define the base folder
-baseFolder = 'C:\Users\javit\Documents\curso24_25\Docencia\EHU\EMIMEP\SSS\Lab\python\dataBase_EthH2O_1p2mL_1p6to3GHz_random'; % Replace with your base folder path
+baseFolder = 'C:\Users\jalon\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\python\dataBase_EthH2O_1p2mL_1p6to3GHz_random'; % Replace with your base folder path
 outputFile = 'organized_data_with_baseline.csv'; % Output CSV file
 warning('off','all')
 warning

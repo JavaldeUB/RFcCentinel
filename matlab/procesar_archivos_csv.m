@@ -48,7 +48,7 @@ function procesar_archivos_csv(folderPath)
         data = readtable(filePath);
         
         if all(ismember({'Freq_Hz_', 'RealPart', 'ImaginaryPart'}, data.Properties.VariableNames))
-            s21 = 20 * log10(abs(data.RealPart + j * data.ImaginaryPart));
+            s21 = 20 * log10(abs(data.RealPart + 1i * data.ImaginaryPart));
             
             % Interpolate the base spectrum to match current frequency
             interpBase = interp1(freqBase, s21Base, data.Freq_Hz_, 'linear', 'extrap');

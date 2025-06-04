@@ -28,7 +28,7 @@ opts.ExtraColumnsRule = "ignore";
 opts.EmptyLineRule = "read";
 
 % Import the data
-organizeddatawithbaseline = readtable("C:\Users\javit\Documents\curso24_25\Docencia\EHU\EMIMEP\SSS\Lab\matlab\organized_data_with_baseline.csv", opts);
+organizeddatawithbaseline = readtable("C:\Users\jalon\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\matlab\organized_data_with_baseline.csv", opts);
 
 % Convert to output type
 dataBase = table2array(organizeddatawithbaseline);
@@ -57,7 +57,7 @@ opts = setvaropts(opts, "Var2", "EmptyFieldRule", "auto");
 opts = setvaropts(opts, "VarName1", "TrimNonNumeric", true);
 opts = setvaropts(opts, "VarName1", "ThousandsSeparator", ",");
 % Import the data
-randomList = readtable("C:\Users\javit\Documents\curso24_25\Docencia\EHU\EMIMEP\SSS\Lab\python\dataBase_EthH2O_1p2mL_1p6to3GHz_random\randomList.txt", opts);
+randomList = readtable("C:\Users\jalon\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\python\dataBase_EthH2O_1p2mL_1p6to3GHz_random\randomList.txt", opts);
 % Convert to output type
 measList = table2array(randomList);
 % Clear temporary variables
