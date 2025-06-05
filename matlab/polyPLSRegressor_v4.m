@@ -182,6 +182,7 @@ uniqueGroups = unique(groups_train);
 maxComponents = 41; 
 mseCV = zeros(maxComponents, 1);
 k = input("Input the degree of the polynomial regression: ");
+clear options
 for nComp = 1:maxComponents
     mseGroup = zeros(length(uniqueGroups), 1);
     

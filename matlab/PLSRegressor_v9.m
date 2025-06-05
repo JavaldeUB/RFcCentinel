@@ -28,14 +28,35 @@ opts.ExtraColumnsRule = "ignore";
 opts.EmptyLineRule = "read";
 
 % Import the data
-organizeddatawithbaseline = readtable("C:\Users\jalon\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\matlab\organized_data_with_baseline.csv", opts);
-
+%organizeddatawithbaseline = readtable("C:\Users\jalon\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\matlab\organized_data_with_baseline.csv", opts);
+organizeddatawithbaseline = readtable("C:\Users\javit\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\matlab\organized_data_with_baseline.csv", opts);
 % Convert to output type
 dataBase = table2array(organizeddatawithbaseline);
 
 % Clear temporary variables
 clear organizeddatawithbaseline
 clear opts
+
+%% Read the baseline aligned by cow
+opts = delimitedTextImportOptions("NumVariables", 201);
+
+% Specify range and delimiter
+opts.DataLines = [2, Inf];
+opts.Delimiter = ",";
+
+% Specify column names and types
+opts.VariableNames = ["Freq_1", "Freq_2", "Freq_3", "Freq_4", "Freq_5", "Freq_6", "Freq_7", "Freq_8", "Freq_9", "Freq_10", "Freq_11", "Freq_12", "Freq_13", "Freq_14", "Freq_15", "Freq_16", "Freq_17", "Freq_18", "Freq_19", "Freq_20", "Freq_21", "Freq_22", "Freq_23", "Freq_24", "Freq_25", "Freq_26", "Freq_27", "Freq_28", "Freq_29", "Freq_30", "Freq_31", "Freq_32", "Freq_33", "Freq_34", "Freq_35", "Freq_36", "Freq_37", "Freq_38", "Freq_39", "Freq_40", "Freq_41", "Freq_42", "Freq_43", "Freq_44", "Freq_45", "Freq_46", "Freq_47", "Freq_48", "Freq_49", "Freq_50", "Freq_51", "Freq_52", "Freq_53", "Freq_54", "Freq_55", "Freq_56", "Freq_57", "Freq_58", "Freq_59", "Freq_60", "Freq_61", "Freq_62", "Freq_63", "Freq_64", "Freq_65", "Freq_66", "Freq_67", "Freq_68", "Freq_69", "Freq_70", "Freq_71", "Freq_72", "Freq_73", "Freq_74", "Freq_75", "Freq_76", "Freq_77", "Freq_78", "Freq_79", "Freq_80", "Freq_81", "Freq_82", "Freq_83", "Freq_84", "Freq_85", "Freq_86", "Freq_87", "Freq_88", "Freq_89", "Freq_90", "Freq_91", "Freq_92", "Freq_93", "Freq_94", "Freq_95", "Freq_96", "Freq_97", "Freq_98", "Freq_99", "Freq_100", "Freq_101", "Freq_102", "Freq_103", "Freq_104", "Freq_105", "Freq_106", "Freq_107", "Freq_108", "Freq_109", "Freq_110", "Freq_111", "Freq_112", "Freq_113", "Freq_114", "Freq_115", "Freq_116", "Freq_117", "Freq_118", "Freq_119", "Freq_120", "Freq_121", "Freq_122", "Freq_123", "Freq_124", "Freq_125", "Freq_126", "Freq_127", "Freq_128", "Freq_129", "Freq_130", "Freq_131", "Freq_132", "Freq_133", "Freq_134", "Freq_135", "Freq_136", "Freq_137", "Freq_138", "Freq_139", "Freq_140", "Freq_141", "Freq_142", "Freq_143", "Freq_144", "Freq_145", "Freq_146", "Freq_147", "Freq_148", "Freq_149", "Freq_150", "Freq_151", "Freq_152", "Freq_153", "Freq_154", "Freq_155", "Freq_156", "Freq_157", "Freq_158", "Freq_159", "Freq_160", "Freq_161", "Freq_162", "Freq_163", "Freq_164", "Freq_165", "Freq_166", "Freq_167", "Freq_168", "Freq_169", "Freq_170", "Freq_171", "Freq_172", "Freq_173", "Freq_174", "Freq_175", "Freq_176", "Freq_177", "Freq_178", "Freq_179", "Freq_180", "Freq_181", "Freq_182", "Freq_183", "Freq_184", "Freq_185", "Freq_186", "Freq_187", "Freq_188", "Freq_189", "Freq_190", "Freq_191", "Freq_192", "Freq_193", "Freq_194", "Freq_195", "Freq_196", "Freq_197", "Freq_198", "Freq_199", "Freq_200", "Freq_201"];
+opts.VariableTypes = ["double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double"];
+
+% Specify file level properties
+opts.ExtraColumnsRule = "ignore";
+opts.EmptyLineRule = "read";
+
+% Import the data
+%organizeddatawithbaseline = readtable("C:\Users\jalon\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\matlab\organized_data_with_baseline.csv", opts);
+baselineTable = readtable("C:\Users\javit\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\python\dataBase_WaterInVial_1p2mL_1p6to3GHz\20241202\cowSpectrum_baseline.csv", opts);
+% Convert to output type
+baseline = table2array(baselineTable);
 
 %% Import the randomList
 opts = delimitedTextImportOptions("NumVariables", 2);
@@ -57,7 +78,8 @@ opts = setvaropts(opts, "Var2", "EmptyFieldRule", "auto");
 opts = setvaropts(opts, "VarName1", "TrimNonNumeric", true);
 opts = setvaropts(opts, "VarName1", "ThousandsSeparator", ",");
 % Import the data
-randomList = readtable("C:\Users\jalon\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\python\dataBase_EthH2O_1p2mL_1p6to3GHz_random\randomList.txt", opts);
+%randomList = readtable("C:\Users\jalon\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\python\dataBase_EthH2O_1p2mL_1p6to3GHz_random\randomList.txt", opts);
+randomList = readtable("C:\Users\javit\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\python\dataBase_EthH2O_1p2mL_1p6to3GHz_random\randomList.txt", opts);
 % Convert to output type
 measList = table2array(randomList);
 % Clear temporary variables
@@ -67,7 +89,6 @@ clear opts
 %% Getting data in different variables
 %data
 sortData = sortrows(dataBase,202);          %Ordered by label database
-baseline = sortData(1:5,1:201);             %baseline data
 data = sortData(6:end,1:201);               %measured data
 y = sortData(6:end,202);                    %labels
 freq = linspace(1.6,3,201);             %Frequency Axis
@@ -88,7 +109,7 @@ minCount = min(counts);
 Xp = data;
 yp = y;
 
-%% Plotting the 20.*log10 (|s21|)
+%% Plotting the 20.*log10 (|s21|) raw data
 if plt==1
     colors = jet(length(uniqueNumbers));
     %colors = colors(end:-1:1,:);
@@ -98,10 +119,10 @@ if plt==1
     for i = 1:length(uniqueNumbers)
         label = uniqueNumbers(i);
         rows = Xp(yp == label, :);
-        rowsb = baseline(1,:);
+
         for j = 1:size(rows, 1)
             %[val, idx]=min(20.*log10(abs(rows(j,:)./rowsb)));
-            h = plot(freqAxis,abs(rows(j, :)-rowsb), 'Color', colors(i, :));        
+            h = plot(freqAxis,rows(j, :), 'Color', colors(i, :));        
             %text(freqAxis(idx), val, num2str(j), ...
             %    'HorizontalAlignment', 'left', ...
             %    'VerticalAlignment', 'middle');
@@ -116,22 +137,118 @@ if plt==1
     legend(legend_handles, arrayfun(@num2str, uniqueNumbers, 'UniformOutput', false), 'Location', 'best');
 end
 
-%% Transformations and preprocessing
-% Baseline Correction
-X_bc = zeros(size(Xp));
-for i = 1:length(uniqueNumbers)
-    label = uniqueNumbers(i);
-    rows = Xp(yp == label, :);
-    rowsb = baseline(1,:);
-    for j = 1:size(rows, 1)
-        X_bc((i-1)*size(rows,1)+j,:) = abs(rows(j,:)-rowsb);
-    end
+%% Asymetric Least Squares for baseline removal
+z = zeros(size(Xp));
+for i = 1:size(Xp,1)
+    z(i,:)=asymmetric_least_squares(-Xp(i,:),1e6,0.001,10);
 end
-% Autoscaling only magnitude
-%X_bc_wo0 = X_bc(1:end-98,:);
-X_mean = mean(X_bc);
-X_std = std(X_bc);
-X_autoS = (X_bc);%./X_std;
+X_ALS = -(-Xp - z);
+
+if plt==1
+    colors = jet(length(uniqueNumbers));
+    %colors = colors(end:-1:1,:);
+    legend_handles = gobjects(length(uniqueNumbers), 1);
+    hS21_als = figure;
+    hold on;
+    for i = 1:length(uniqueNumbers)
+        label = uniqueNumbers(i);
+        rows = X_ALS(yp == label, :);
+
+        for j = 1:size(rows, 1)
+            %[val, idx]=min(20.*log10(abs(rows(j,:)./rowsb)));
+            h = plot(freqAxis,rows(j, :), 'Color', colors(i, :));        
+            %text(freqAxis(idx), val, num2str(j), ...
+            %    'HorizontalAlignment', 'left', ...
+            %    'VerticalAlignment', 'middle');
+            if j == 1
+                legend_handles(i) = h;
+            end
+        end
+    end
+    hold off;
+    xlabel("Freq (GHz)");
+    ylabel("20log_{10}|S_{21}|");
+    legend(legend_handles, arrayfun(@num2str, uniqueNumbers, 'UniformOutput', false), 'Location', 'best');
+end
+
+%% Aligment of each concentration within itself
+X_wrp = zeros(size(Xp)); 
+for i = 1:length(uniqueNumbers)
+    %concentration selection
+    disp("Alignning concentration: "+num2str(uniqueNumbers(i)))
+    X = -X_ALS(50*(i-1)+1:i*50,:);
+    %optim_cow for optimal parameters for cow alignment
+    optim_space = [5 30 2 20]; %segment lenght limits and slack limits
+    options = [0 3 50 .7];
+    ref = ref_select(X,[],[1 5]);
+    [optim_pars,OS,diagnos] = optim_cow(X,optim_space,options,ref);
+    disp("COW optimization diagnosis for concentration: "+num2str(uniqueNumbers(i)))
+    diagnos
+    
+    %cow with the parameters optimized
+    [Warping,XWarped,Diagnos] = cow(ref,X,optim_pars(1),optim_pars(2));
+    X_wrp(50*(i-1)+1:i*50,:) = -XWarped;
+    disp("Alignned concentration: "+num2str(uniqueNumbers(i)))
+end
+
+if plt==1
+    colors = jet(length(uniqueNumbers));
+    %colors = colors(end:-1:1,:);
+    legend_handles = gobjects(length(uniqueNumbers), 1);
+    hS21_warped = figure;
+    hold on;
+    for i = 1:length(uniqueNumbers)
+        label = uniqueNumbers(i);
+        rows = X_wrp(yp == label, :);
+
+        for j = 1:size(rows, 1)
+            %[val, idx]=min(20.*log10(abs(rows(j,:)./rowsb)));
+            h = plot(freqAxis,rows(j, :), 'Color', colors(i, :));        
+            %text(freqAxis(idx), val, num2str(j), ...
+            %    'HorizontalAlignment', 'left', ...
+            %    'VerticalAlignment', 'middle');
+            if j == 1
+                legend_handles(i) = h;
+            end
+        end
+    end
+    hold off;
+    xlabel("Freq (GHz)");
+    ylabel("20log_{10}|S_{21}|");
+    legend(legend_handles, arrayfun(@num2str, uniqueNumbers, 'UniformOutput', false), 'Location', 'best');
+end
+%% Baseline corrections 
+X_bc = X_wrp - repmat(baseline,size(X_wrp,1),1);
+%X_bc = X_wrp;
+if plt==1
+    colors = jet(length(uniqueNumbers));
+    %colors = colors(end:-1:1,:);
+    legend_handles = gobjects(length(uniqueNumbers), 1);
+    hS21_bc = figure;
+    hold on;
+    for i = 1:length(uniqueNumbers)
+        label = uniqueNumbers(i);
+        rows = X_bc(yp == label, :);
+
+        for j = 1:size(rows, 1)
+            %[val, idx]=min(20.*log10(abs(rows(j,:)./rowsb)));
+            h = plot(freqAxis,rows(j, :), 'Color', colors(i, :));        
+            %text(freqAxis(idx), val, num2str(j), ...
+            %    'HorizontalAlignment', 'left', ...
+            %    'VerticalAlignment', 'middle');
+            if j == 1
+                legend_handles(i) = h;
+            end
+        end
+    end
+    hold off;
+    xlabel("Freq (GHz)");
+    ylabel("20log_{10}|S_{21}|");
+    legend(legend_handles, arrayfun(@num2str, uniqueNumbers, 'UniformOutput', false), 'Location', 'best');
+end
+
+%% Autoscaling only magnitude
+X_autoS = (X_bc);
 
 %% Plotting the autoscales
 if plt==1
@@ -146,7 +263,7 @@ if plt==1
         rowsb = baseline(1,:);
         for j = 1:size(rows, 1)
             %[val, idx]=min(20.*log10(abs(rows(j,:)./rowsb)));
-            h = plot(freqAxis,-rows(j, :), 'Color', colors(i, :));        
+            h = plot(freqAxis,rows(j, :), 'Color', colors(i, :));        
             %text(freqAxis(idx), val, num2str(j), ...
             %    'HorizontalAlignment', 'left', ...
             %    'VerticalAlignment', 'middle');
@@ -211,18 +328,31 @@ for nComp = 1:maxComponents
         X_test_logo = X_train(testIdx, :);
         Y_test_logo = Y_train(testIdx, :);
         
-        [XL, YL, XS, YS, beta,PCTVAR,MSE,PLSstats] = plsregress(X_train_logo, Y_train_logo, nComp);
-    
+        % [XL, YL, XS, YS, beta,PCTVAR,MSE,PLSstats] = plsregress(X_train_logo, Y_train_logo, nComp);
+        % 
+        % % Calculate normalized PLS weights
+        % W0 = bsxfun(@rdivide,PLSstats.W,sqrt(sum(PLSstats.W.^2,1)));
+        % % Calculate the product of summed squares of XS and YL
+        % sumSq = sum(XS.^2,1).*sum(YL.^2,1);
+        % % Calculate VIP scores for NCOMP components
+        % vipScores(i,:) = sqrt(size(XL,1) * sum(bsxfun(@times,sumSq,W0.^2),2) ./ sum(sumSq,2));        
+        % 
+        % % Prediction and Error Calculation
+        % Y_pred_logo = [ones(size(X_test_logo, 1), 1), X_test_logo] * beta;
+        % mseGroup(i) = sqrt(mean((Y_test_logo - Y_pred_logo).^2));
+        % Y_pred_tot = cat(1,Y_pred_tot,Y_pred_logo);
+        options.display='off';
+        [XL, YL, XW, XS, YS, beta, PLSstats] = polypls(X_train_logo, Y_train_logo, nComp,1,options);
+        
         % Calculate normalized PLS weights
-        W0 = bsxfun(@rdivide,PLSstats.W,sqrt(sum(PLSstats.W.^2,1)));
+        W0 = bsxfun(@rdivide,XW,sqrt(sum(XW.^2,1)));
         % Calculate the product of summed squares of XS and YL
         sumSq = sum(XS.^2,1).*sum(YL.^2,1);
         % Calculate VIP scores for NCOMP components
         vipScores(i,:) = sqrt(size(XL,1) * sum(bsxfun(@times,sumSq,W0.^2),2) ./ sum(sumSq,2));        
-        
-        % Prediction and Error Calculation
-        Y_pred_logo = [ones(size(X_test_logo, 1), 1), X_test_logo] * beta;
-        mseGroup(i) = sqrt(mean((Y_test_logo - Y_pred_logo).^2));
+
+        Y_pred_logo = polypred(X_test_logo,beta,XL,YL,XW,nComp);
+        mseGroup(i) = sqrt(mean((Y_test_logo - Y_pred_logo).^2));        
         Y_pred_tot = cat(1,Y_pred_tot,Y_pred_logo);
     end
     
@@ -239,7 +369,7 @@ if plt==1
     figure;
     plot(1:maxComponents, sqrt(mseLVs), '-o');
     xlabel('Number of Components');
-    ylabel('Cross-Validated MSE');
+    ylabel('Cross-Validated RMSE');
     title('LOGO Cross-Validation');
     grid on;
 end
@@ -269,7 +399,7 @@ if plt==1
     xlim([min(freqAxis), max(freqAxis)])
     ylim([0 2]);
     grid on;
-    figure(hS21);
+    figure(hS21_als);
     for nCls = 1:length(clusters)
         cluster = clusters{:,nCls};
         if length(cluster)>1
@@ -287,7 +417,7 @@ disp('%%%% PERFORMANCE DURING LOGO CROSS VALIDATION %%%%%%%%%%%%%%%%%%%');
 [~, optimalComponents] = min(mseLVs);
 disp(['Optimal Number of Components: ', num2str(optimalComponents)]);
 row_indices = randperm(size(X_train, 1));
-[XLF, YLF, XSF, YSF, betaFinal, PLSstatsF] = plsregress(X_Train, y_Train, optimalComponents);
+[XLF, YLF, XSF, YSF, betaFinal, PLSstatsF] = plsregress(X_Train, y_Train, 7);%optimalComponents);
 Y_pred_CV = [ones(size(X_test, 1), 1), X_test] * betaFinal;
 mseTest = sqrt(mean((Y_test - Y_pred_CV).^2));
 RSS = sum((Y_test - Y_pred_CV).^2);
