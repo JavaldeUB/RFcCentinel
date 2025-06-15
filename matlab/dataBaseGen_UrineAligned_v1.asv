@@ -1,0 +1,167 @@
+%% Define the base folder
+%baseFolder = 'C:\Users\jalon\Documents\curso24_25\Investigacion\UB\GRAF\RFcCentinel\mesurements\Urine\urine_Pyruvate'; % Replace with your base folder path
+folderPath = seleccionar_carpeta;
+%outputFile = 'organized_data_with_baseline.csv'; % Output CSV file
+outputFile  = salvar_archivo(folderPath);
+if ~isempty(outputFile)
+    disp(['Database file saved in: ', outputFile]);
+end
+warning('off','all')
+warning
+
+%% Read and process the baseline measurement
+% Initialize an empty array for storing data
+allData = [];
+baselineFile = seleccionar_archivo(folderPath);
+if isfile(baselineFile)
+   baselineData = readtable(baselineFile);
+                
+   % Append baseline data as the first row for the day
+   baselineRow = [table2array(baselineData), 0, 0, 0];
+   allData = [allData; baselineRow]; %#ok<AGROW>
+end
+
+%% Get subfolders (x10, x20, ..., x96)
+sampleFolders = dir(fullfile(folderPath, 'x*'));
+sampleFolders = sampleFolders([sampleFolders.isdir]);
+
+%% Extraction of every concentration to a matrix
+%Log transformation is applied
+%metadata is added
+%The x00 concentration is skipped
+for j = 2:length(sampleFolders)
+    sampleFolderName = sampleFolders(j).name; % e.g., x10
+    concentration = str2double(sampleFolderName(2:end)); % Extract concentration
+        
+    sampleFolderPath = fullfile(folderPath, sampleFolderName);
+        
+    % Get CSV files in the current folder
+    csvFiles = dir(fullfile(sampleFolderPath, '*.csv'));
+        
+    for k = 1:length(csvFiles)
+        csvFileName = csvFiles(k).name;
+        roundStr = regexp(csvFileName, 'r(\d+)', 'tokens', 'once');
+        round = str2double(roundStr{1}); % Extract round number
+        concStr = regexp(csvFileName, 'c(\d+)', 'tokens', 'once');    
+        concentration = str2double(concStr{1}); % Extract concentration number
+        vialStr = regexp(csvFileName, 's(\d+)', 'tokens', 'once');    
+        vial = str2double(vialStr{1}); % Extract concentration number
+        
+        % Read the CSV file
+        filePath = fullfile(sampleFolderPath, csvFileName);
+        data = readtable(filePath);
+            
+        % Compute the 20*log10(RealPart + 1i*ImaginaryPart)
+        magnitudeLog = 20 * log10(abs(data.RealPart + 1i * data.ImaginaryPart))';
+            
+        % Append the computed row with additional metadata
+        rowData = [magnitudeLog, round ,concentration, vial];
+        allData = [allData; rowData]; %#ok<AGROW>
+    end
+end
+
+%% Plotting dataBase
+y = allData(2:end,203);
+X = allData(2:end,1:201);
+freq = linspace(1.6,3,201);             %Frequency Axis
+freqAxis = freq(1:201);
+uniqueNumbers = unique(y);
+colors = jet(length(uniqueNumbers));
+legend_handles = gobjects(length(uniqueNumbers), 1);
+hS21 = figure;
+hold on;
+for i = 1:length(uniqueNumbers)
+    label = uniqueNumbers(i);
+    rows = X(y == label, :);
+    for j = 1:size(rows, 1)
+        h = plot(freqAxis,rows(j, :), 'Color', colors(i, :));        
+        if j == 1
+            legend_handles(i) = h;
+        end
+    end
+end
+hold off;
+xlabel("\nu (GHz)");
+ylabel("20log_{10}|S_{21}|");
+legend(legend_handles, arrayfun(@num2str, uniqueNumbers, 'UniformOutput', false), 'Location', 'best');
+
+%% Applying Asymmetric Least Squares
+z = zeros(size(X));
+for i = 1:size(X,1)
+    z(i,:)=asymmetric_least_squares(-X(i,:),1e6,0.001,30);
+end
+X_ALS = -(-X - z);
+
+%% Plotting dataBase after ALS
+colors = jet(length(uniqueNumbers));
+legend_handles = gobjects(length(uniqueNumbers), 1);
+hS21_als = figure;
+hold on;
+for i = 1:length(uniqueNumbers)
+    label = uniqueNumbers(i);
+    rows = X_ALS(y == label, :);
+
+    for j = 1:size(rows, 1)
+        h = plot(freqAxis,rows(j, :), 'Color', colors(i, :));        
+        if j == 1
+           legend_handles(i) = h;
+        end
+    end
+end
+hold off;
+xlabel("\nu (GHz)");
+ylabel("20log_{10}|S_{21}|");
+legend(legend_handles, arrayfun(@num2str, uniqueNumbers, 'UniformOutput', false), 'Location', 'best');
+
+%% Alignment of each concentration with itself
+X_wrp = zeros(size(X)); 
+for i = 1:length(uniqueNumbers)
+    %concentration selection
+    disp("Alignning concentration: "+num2str(uniqueNumbers(i)))
+    label = uniqueNumbers(i);
+    rows = X_ALS(y == label, :);
+    X_aux = -rows;
+    %optim_cow for optimal parameters for cow alignment
+    optim_space = [5 30 2 20]; %segment lenght limits and slack limits
+    options = [0 3 50 .7];
+    ref = ref_select(X_aux,[],[1 5]);
+    [optim_pars,OS,diagnos] = optim_cow(X_aux,optim_space,options,ref);
+    disp("COW optimization diagnosis for concentration: "+num2str(uniqueNumbers(i)))
+    diagnos
+
+    %cow with the parameters optimized
+    [Warping,XWarped,Diagnos] = cow(ref,X_aux,optim_pars(1),optim_pars(2));
+    X_wrp(y == label,:) = -XWarped;
+    disp("Alignned concentration: "+num2str(uniqueNumbers(i)))
+end
+
+%% Plotting dataBase after warping
+colors = jet(length(uniqueNumbers));
+legend_handles = gobjects(length(uniqueNumbers), 1);
+hS21_warped = figure;
+hold on;
+for i = 1:length(uniqueNumbers)
+    label = uniqueNumbers(i);
+    rows = X_wrp(y == label, :);
+    for j = 1:size(rows, 1)
+        h = plot(freqAxis,rows(j, :), 'Color', colors(i, :));        
+        if j == 1
+           legend_handles(i) = h;
+        end
+    end
+end
+hold off;
+xlabel("\nu (GHz)");
+ylabel("20log_{10}|S_{21}|");
+legend(legend_handles, arrayfun(@num2str, uniqueNumbers, 'UniformOutput', false), 'Location', 'best');
+
+%% Keep the corrected and warped database in a file
+allData(2:end,1:201) = 
+% Convert the data into a table with appropriate column names
+frequencyColumns = arrayfun(@(x) sprintf('Freq_%d', x), 1:201, 'UniformOutput', false);
+variableNames = [frequencyColumns, {'Round', 'Conc. (mg/dL)', 'Vial'}];
+dataTable = array2table(allData, 'VariableNames', variableNames);
+
+% Write the final table to a CSV file
+writetable(dataTable, outputFile);
+disp(['Data has been successfully written to ', outputFile]);

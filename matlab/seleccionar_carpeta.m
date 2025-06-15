@@ -1,4 +1,4 @@
-function seleccionar_carpeta()
+function folderPath = seleccionar_carpeta()
     % Create a file selection dialog
     folderPath = uigetdir('Select a folder containing CSV files');
     
